@@ -85,6 +85,15 @@
                   </a>
                </li>
 
+               <li class="customers-nav-item-items">
+                  <a href="<?php echo site_url('purchase/vendors_portal/production'); ?>">
+                     <?php
+                     
+                     echo _l('production');
+                    ?>
+                  </a>
+               </li>
+
         <?php } ?>
         
           

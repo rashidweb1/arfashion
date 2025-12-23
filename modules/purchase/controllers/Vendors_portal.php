@@ -995,6 +995,33 @@ class Vendors_portal extends App_Controller
     }
 
     /**
+     * { production }
+     */
+    public function production(){
+        if (!is_vendor_logged_in() && !is_staff_logged_in()) {
+            redirect(site_url('purchase/authentication_vendor/login'));
+        }
+
+        $vendor_id = get_vendor_user_id();
+        
+        // Get production inventory for this vendor
+        $this->db->select('b.*, v.company, mo.manufacturing_order_code');
+        $this->db->from('tblmrp_bom_production_inventory b');
+        $this->db->join('tblpur_vendor v', 'b.vendor_id = v.userid', 'left');
+        $this->db->join('tblmrp_manufacturing_orders mo', 'b.manufacturing_order_id = mo.id', 'both');
+        $this->db->where('b.vendor_id', $vendor_id);
+        $this->db->order_by('b.manufacturing_order_id', 'desc');
+        $production_inventory = $this->db->get()->result_array();
+
+        $data['title'] = _l('production');
+        $data['production_inventory'] = $production_inventory;
+
+        $this->data($data);
+        $this->view('vendor_portal/production/manage');
+        $this->layout();
+    }
+
+    /**
      * { purchase request }
      */
     public function purchase_request(){

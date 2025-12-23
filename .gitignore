@@ -1,0 +1,52 @@
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Composer
+/vendor/
+
+# Node (if used)
+node_modules/
+
+# Environment / config
+.env
+.env.*
+application/config/config.php
+application/config/database.php
+application/config/email.php
+application/config/constants.php
+
+# Cache & logs
+application/cache/*
+!application/cache/index.html
+
+application/logs/*
+!application/logs/index.html
+
+# Uploads (user-generated content)
+uploads/
+application/uploads/
+
+# Session files (if file-based sessions)
+application/sessions/
+
+# Third-party temp files
+application/third_party/*
+
+# PHPUnit / testing
+phpunit.xml
+.phpunit.result.cache
+
+# Build / dist (if any)
+dist/
+build/
+
+# Uploads (user-generated content)
+vendor/
+application/vendor/

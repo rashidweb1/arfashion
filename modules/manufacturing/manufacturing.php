@@ -97,15 +97,15 @@ function manufacturing_module_init_menu_items()
 		]);
 	 }
 
-	 if(has_permission('manufacturing','','view')){
-		 $CI->app_menu->add_sidebar_children_item('manufacturing', [
-			'slug'     => 'manufacturing_reception_of_staff',
-			'name'     => _l('mrp_product_variants'),
-			'icon'     => 'fa fa-edit',
-			'href'     => admin_url('manufacturing/product_variant_management'),
-			'position' => 3,
-		]);
-	 }
+	//  if(has_permission('manufacturing','','view')){
+	// 	 $CI->app_menu->add_sidebar_children_item('manufacturing', [
+	// 		'slug'     => 'manufacturing_reception_of_staff',
+	// 		'name'     => _l('mrp_product_variants'),
+	// 		'icon'     => 'fa fa-edit',
+	// 		'href'     => admin_url('manufacturing/product_variant_management'),
+	// 		'position' => 3,
+	// 	]);
+	//  }
 
 	 if(has_permission('manufacturing','','view')){
 		 $CI->app_menu->add_sidebar_children_item('manufacturing', [
@@ -117,15 +117,15 @@ function manufacturing_module_init_menu_items()
 		]);
 	 }
 
-	 if(has_permission('manufacturing','','view')){
-		 $CI->app_menu->add_sidebar_children_item('manufacturing', [
-			'slug'     => 'manufacturing_training',
-			'name'     => _l('mrp_routings'),
-			'icon'     => 'fa fa-cogs',
-			'href'     => admin_url('manufacturing/routing_manage'),
-			'position' => 6,
-		]);
-	 }
+	//  if(has_permission('manufacturing','','view')){
+	// 	 $CI->app_menu->add_sidebar_children_item('manufacturing', [
+	// 		'slug'     => 'manufacturing_training',
+	// 		'name'     => _l('mrp_routings'),
+	// 		'icon'     => 'fa fa-cogs',
+	// 		'href'     => admin_url('manufacturing/routing_manage'),
+	// 		'position' => 6,
+	// 	]);
+	//  }
 
 	 if(has_permission('manufacturing','','view')){
 		$CI->app_menu->add_sidebar_children_item('manufacturing', [

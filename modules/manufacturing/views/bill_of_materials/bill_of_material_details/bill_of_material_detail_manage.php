@@ -58,7 +58,7 @@
 								<div class="col-md-12">
 									<?php echo render_select('product_id',$parent_product,array('id',array('description')),'product_label', $product_id); ?>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-12 hide">
 									<?php echo render_select('product_variant_id',$product_variant,array('id','description'),'product_variant', $product_variant_id); ?>
 
 								</div>

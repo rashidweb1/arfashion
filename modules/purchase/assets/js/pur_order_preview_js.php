@@ -354,7 +354,8 @@ function convert_to_purchase_inv(pur_order, btn) {
       
       // Reload page after 2 seconds
       setTimeout(function () {
-        location.reload();
+        //location.reload();
+        location.replace(location.pathname);
       }, 2000);
     } else {
       alert_float('warning', response.mess);
@@ -367,6 +368,25 @@ function convert_to_purchase_inv(pur_order, btn) {
     $(btn).prop('disabled', false);
   });
 }
+
+  $(document).ready(function () {
+      const params = new URLSearchParams(window.location.search);
+      const autoGenerate = params.get('auto_generate_purchase_invoice');
+
+      if (autoGenerate === 'true') {
+          console.log('Auto generate purchase invoice triggered');
+          // call your function here
+          // autoGeneratePurchaseInvoice();
+          $('a[href="#payment_record"]').tab('show');
+
+          setTimeout(function () {
+            if (confirm('Are you sure you want to convert this Purchase Order to a Purchase Invoice?'))
+            {
+              $("#convert_to_purchase_inv").click();
+            }
+          }, 1000);         
+      }
+  });
 
 function add_contract_comment() {
   "use strict";

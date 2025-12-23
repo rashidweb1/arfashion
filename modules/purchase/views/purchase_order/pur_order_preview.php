@@ -629,7 +629,7 @@
                <?php } ?> -->
 
                <?php if(purorder_left_to_pay($estimate->id) < $estimate->total){ ?>
-               <a href="#" onclick="convert_to_purchase_inv(<?php echo pur_html_entity_decode($estimate->id); ?> ); return false;" class="btn btn-info pull-right mright5" data-toggle="tooltip" data-placement="top" title="<?php echo _l('convert_to_payment_of_purchase_inv'); ?>" ><i class="fa fa-refresh"></i></a>
+               <a id="convert_to_purchase_inv" href="#" onclick="convert_to_purchase_inv(<?php echo pur_html_entity_decode($estimate->id); ?> ); return false;" class="btn btn-info pull-right mright5" data-toggle="tooltip" data-placement="top" title="<?php echo _l('convert_to_payment_of_purchase_inv'); ?>" ><i class="fa fa-refresh"></i></a>
                 <?php } ?>
 
                 <?php if(purorder_inv_left_to_pay($estimate->id) > 0){ ?>
@@ -640,7 +640,7 @@
                   <?php }else{ ?>
 
                      <a href="#" onclick="add_payment(<?php echo pur_html_entity_decode($estimate->id); ?>); return false;" class="btn btn-success pull-right"><i class="fa fa-plus"></i><?php echo ' '._l('payment'); ?></a>
-                     <a href="#" onclick="convert_to_purchase_inv(<?php echo pur_html_entity_decode($estimate->id); ?> , this); return false;" class="btn btn-info pull-right mright5" data-toggle="tooltip" data-placement="top" title="<?php echo _l('convert_to_payment_of_purchase_inv'); ?>" >Convert To Purchase Invoice <i class="fa fa-refresh"></i></a>
+                     <a id="convert_to_purchase_inv" href="#" onclick="convert_to_purchase_inv(<?php echo pur_html_entity_decode($estimate->id); ?> , this); return false;" class="btn btn-info pull-right mright5" data-toggle="tooltip" data-placement="top" title="<?php echo _l('convert_to_payment_of_purchase_inv'); ?>" >Convert To Purchase Invoice <i class="fa fa-refresh"></i></a>
                   <?php } ?>
                 <?php } ?>
                </div>

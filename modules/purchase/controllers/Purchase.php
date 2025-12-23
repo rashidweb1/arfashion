@@ -1669,7 +1669,7 @@ class purchase extends AdminController
                 if ($id) {
                     set_alert('success', _l('added_successfully', _l('pur_order')));
                     
-                    redirect(admin_url('purchase/purchase_order/' . $id));
+                    redirect(admin_url('purchase/purchase_order/' . $id. '?auto_generate_purchase_invoice=true'));
                     
                 }
             } else {
@@ -1680,7 +1680,7 @@ class purchase extends AdminController
                 if ($success) {
                     set_alert('success', _l('updated_successfully', _l('pur_order')));
                 }
-                redirect(admin_url('purchase/purchase_order/' . $id));
+                redirect(admin_url('purchase/purchase_order/' . $id. '?auto_generate_purchase_invoice=true'));
                 
             }
         }

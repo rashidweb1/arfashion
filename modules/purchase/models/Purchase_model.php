@@ -7391,7 +7391,7 @@ class Purchase_model extends App_Model
         $inv_data['discount_percent'] = $pur_order->discount_percent;
         $inv_data['discount_total'] = $pur_order->discount_total;
         $inv_data['transaction_date'] = date('Y-m-d');
-        $inv_data['invoice_date'] = date('Y-m-d');
+        $inv_data['invoice_date'] = $pur_order->order_date ?? date('Y-m-d');
         $inv_data['duedate'] = to_sql_date($data['date']) ?? date('Y-m-d');
         $inv_data['payment_status'] = 'unpaid';
         $inv_data['date_add'] = date('Y-m-d');

@@ -1022,6 +1022,48 @@ class Vendors_portal extends App_Controller
     }
 
     /**
+     * { production detail }
+     *
+     * @param        $manufacturing_order_id     The manufacturing order identifier
+     */
+    public function production_detail($manufacturing_order_id){
+        if (!is_vendor_logged_in() && !is_staff_logged_in()) {
+            redirect(site_url('purchase/authentication_vendor/login'));
+        }
+
+        $vendor_id = get_vendor_user_id();
+        
+        // Get manufacturing order details
+        $manufacturing_order = $this->db->where('id', $manufacturing_order_id)->get('tblmrp_manufacturing_orders')->row();
+        
+        if (!$manufacturing_order) {
+            show_404();
+        }
+
+        // Verify vendor has access to this manufacturing order
+        $this->db->select('b.*, v.company');
+        $this->db->from('tblmrp_bom_production_inventory b');
+        $this->db->join('tblpur_vendor v', 'b.vendor_id = v.userid', 'left');
+        $this->db->where('b.manufacturing_order_id', $manufacturing_order_id);
+        $this->db->where('b.vendor_id', $vendor_id);
+        $production_inventory = $this->db->get()->result_array();
+
+        if (empty($production_inventory)) {
+            set_alert('danger', 'You do not have access to this manufacturing order.');
+            redirect(site_url('purchase/vendors_portal/production'));
+        }
+
+        $data['title'] = _l('production_detail') . ' - ' . $manufacturing_order->manufacturing_order_code;
+        $data['manufacturing_order'] = $manufacturing_order;
+        $data['production_inventory'] = $production_inventory;
+        $data['status'] = $manufacturing_order->status;
+
+        $this->data($data);
+        $this->view('vendor_portal/production/detail');
+        $this->layout();
+    }
+
+    /**
      * { purchase request }
      */
     public function purchase_request(){

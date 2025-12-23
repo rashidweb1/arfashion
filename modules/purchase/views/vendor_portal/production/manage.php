@@ -16,6 +16,7 @@
 							<th>Description</th>
 							<th>Type</th>
 							<th>Status</th>
+							<th>Options</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,6 +49,11 @@
 									$class = $statusClasses[$item['status']] ?? 'secondary';
 								?>
 								<span class="label label-<?php echo $class ?>"><?php echo ucfirst(str_replace('_', ' ', $item['status'])); ?></span>
+							</td>
+							<td>
+								<a href="<?php echo site_url('purchase/vendors_portal/production_detail/' . $item['manufacturing_order_id']); ?>" class="btn btn-info btn-xs">
+									<?php echo _l('Detail'); ?>
+								</a>
 							</td>
 						</tr>
 						<?php endforeach; ?>

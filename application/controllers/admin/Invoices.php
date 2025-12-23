@@ -323,7 +323,8 @@ class Invoices extends AdminController
                 $id = $this->invoices_model->add($invoice_data);
                 if ($id) {
                     set_alert('success', _l('added_successfully', _l('invoice')));
-                    $redUrl = admin_url('invoices/list_invoices/' . $id);
+                    //$redUrl = admin_url('invoices/list_invoices/' . $id);
+                    $redUrl = admin_url('warehouse/goods_delivery?invoice_id=' . $id);
 
                     if (isset($invoice_data['save_and_record_payment'])) {
                         $this->session->set_userdata('record_payment', true);

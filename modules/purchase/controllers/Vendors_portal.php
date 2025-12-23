@@ -1064,6 +1064,53 @@ class Vendors_portal extends App_Controller
     }
 
     /**
+     * { production receipt }
+     *
+     * @param        $bom_production_inventory_id     The production inventory identifier
+     */
+    public function receipt_production($bom_production_inventory_id = ""){
+        if (!is_vendor_logged_in() && !is_staff_logged_in()) {
+            redirect(site_url('purchase/authentication_vendor/login'));
+        }
+
+        $vendor_id = get_vendor_user_id();
+
+        // Get production inventory and verify vendor ownership
+        $this->db->select('b.*, v.company, v.phonenumber, v.address, v.city, v.zip, v.state, v.country');
+        $this->db->from('tblmrp_bom_production_inventory b');
+        $this->db->join('tblpur_vendor v', 'b.vendor_id = v.userid', 'left');
+        $this->db->where('b.id', $bom_production_inventory_id);
+        $this->db->where('b.vendor_id', $vendor_id);
+        $production_inventory = $this->db->get()->row_array();
+
+        if (!$production_inventory) {
+            show_404();
+        }
+
+        $data['production_inventory'] = $production_inventory;
+
+        // Get production inventory details
+        $this->db->select('bid.*, bi.product_name, bi.unit_id, ut.unit_name');
+        $this->db->from('tblmrp_bom_production_inventory_details bid');
+        $this->db->join('tblmrp_bom_inventory bi', 'bid.bom_inventory_id = bi.id', 'left'); 
+        $this->db->join('tblware_unit_type ut', 'bi.unit_id = ut.unit_type_id', 'left');
+        $this->db->where('bid.bom_production_inventory_id', $bom_production_inventory_id);
+        $data['production_inventory_details'] = $this->db->get()->result_array();
+
+        // Get manufacturing order and product details
+        $product_id = $this->db->select('*')->from('tblmrp_manufacturing_orders')->where('id', $production_inventory['manufacturing_order_id'])->get()->row()->product_id;
+        $data['manufacturing_order_code'] = $this->db->select('*')->from('tblmrp_manufacturing_orders')->where('id', $production_inventory['manufacturing_order_id'])->get()->row()->manufacturing_order_code;
+        $data['m_product'] = $this->db->select('*')->from('tblitems')->where('id', $product_id)->get()->row_array();
+
+        // Set base currency for the receipt view
+        $base_currency_obj = get_base_currency_pur();
+        $data['base_currency'] = $base_currency_obj->name;
+
+        // Load the receipt view
+        $this->load->view('vendor_portal/production/receipt', $data);
+    }
+
+    /**
      * { purchase request }
      */
     public function purchase_request(){

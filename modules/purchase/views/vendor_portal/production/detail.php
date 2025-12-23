@@ -53,7 +53,7 @@
 											<span class="label label-<?php echo $class ?>"><?php echo ucfirst(str_replace('_', ' ', $item['status'])); ?></span>
 										</td>
 										<td>
-											<a target="_blank" href="<?php echo admin_url('manufacturing/receipt_production/' . $item['id']); ?>?sr_no=<?php echo $sr_no - 1 ?>">
+											<a target="_blank" href="<?php echo site_url('purchase/vendors_portal/receipt_production/' . $item['id']); ?>?sr_no=<?php echo $sr_no - 1 ?>">
 												<?php echo _l('Receipt'); ?>
 											</a>
 										</td>

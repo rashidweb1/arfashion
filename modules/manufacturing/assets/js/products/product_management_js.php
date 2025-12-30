@@ -90,5 +90,51 @@
 		$('#table_commodity_list_print_barcode').modal('show');
 	}
 
+	// Handle product delete with datatable refresh instead of page reload
+	$('body').on('click', '.product-delete', function(e) {
+		"use strict";
+		e.preventDefault();
+		e.stopImmediatePropagation(); // Prevent the default _delete handler from running
+		
+		var deleteLink = $(this);
+		var deleteUrl = deleteLink.attr('href');
+		
+		if (confirm_delete()) {
+			$.ajax({
+				url: deleteUrl,
+				type: 'GET',
+				success: function(response) {
+					// Show success message
+					alert_float('success', "<?php echo _l('mrp_deleted'); ?>");
+					
+					// Refresh the datatable
+					if ($.fn.DataTable.isDataTable('.table-product_table')) {
+						$('.table-product_table').DataTable().ajax.reload(null, false);
+					}
+				},
+				error: function(xhr) {
+					// Try to parse response for error message
+					var message = "<?php echo _l('problem_deleting'); ?>";
+					try {
+						if (xhr.responseText) {
+							// Check if response contains referenced error
+							if (xhr.responseText.indexOf('is_referenced') !== -1) {
+								message = "<?php echo _l('is_referenced', _l('commodity')); ?>";
+							}
+						}
+					} catch(e) {
+						// Use default message
+					}
+					alert_float('warning', message);
+					
+					// Refresh the datatable even on error to ensure consistency
+					if ($.fn.DataTable.isDataTable('.table-product_table')) {
+						$('.table-product_table').DataTable().ajax.reload(null, false);
+					}
+				}
+			});
+		}
+		return false;
+	});
 
 </script>

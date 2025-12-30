@@ -182,16 +182,16 @@ foreach ($rResult as $aRow) {
 		}
 
 		if ($aColumns[$i] == 'description') {
-			$code = '<a href="' . admin_url('manufacturing/view_product_detail/' . $aRow['id']) . '">' . $aRow['description'] . '</a>';
+			$code = '<a href="' . admin_url('manufacturing/view_product_detail/' . $aRow['id']) . '" target="_blank">' . $aRow['description'] . '</a>';
 			$code .= '<div class="row-options">';
 
-			$code .= '<a href="' . admin_url('manufacturing/view_product_detail/' . $aRow['id']) . '" >' . _l('view') . '</a>';
+			$code .= '<a href="' . admin_url('manufacturing/view_product_detail/' . $aRow['id']) . '" target="_blank">' . _l('view') . '</a>';
 
 			if (has_permission('manufacturing', '', 'edit') || is_admin()) {
-				$code .= ' | <a href="' . admin_url('manufacturing/add_edit_product/product/' . $aRow['id']) . '"  >' . _l('edit') . '</a>';
+				$code .= ' | <a href="' . admin_url('manufacturing/add_edit_product/product/' . $aRow['id']) . '" target="_blank">' . _l('edit') . '</a>';
 			}
 			if (has_permission('manufacturing', '', 'delete') || is_admin()) {
-				$code .= ' | <a href="' . admin_url('manufacturing/delete_product/' . $aRow['id'].'/product') . '" class="text-danger _delete">' . _l('delete') . '</a>';
+				$code .= ' | <a href="' . admin_url('manufacturing/delete_product/' . $aRow['id'].'/product') . '" class="text-danger product-delete">' . _l('delete') . '</a>';
 			}
 
 			$code .= '</div>';

@@ -21,7 +21,7 @@
 							<div class="col-md-4 ">
 								<?php if (has_permission('manufacturing', '', 'create') || has_permission('manufacturing', '', 'edit') ) { ?>
 
-									<a href="<?php echo admin_url('manufacturing/add_edit_product/'.$type); ?>" class="btn btn-info pull-left display-block mright5"><?php echo _l('add'); ?></a>
+									<a href="<?php echo admin_url('manufacturing/add_edit_product/'.$type); ?>" target="_blank" class="btn btn-info pull-left display-block mright5"><?php echo _l('add'); ?></a>
 
 								<?php } ?>
 							</div>

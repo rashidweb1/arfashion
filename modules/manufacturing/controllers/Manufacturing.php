@@ -969,7 +969,8 @@ class Manufacturing extends AdminController
 				if($type == 'product_variant'){
 					$url = admin_url('manufacturing/product_variant_management');
 				}else{
-					$url = admin_url('manufacturing/product_management');
+					// Redirect back to edit page after successful update
+					$url = admin_url('manufacturing/add_edit_product/product/' . $id);
 				}
 
 				echo json_encode([

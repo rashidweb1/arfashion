@@ -158,11 +158,7 @@ class Proposals extends AdminController
                 if ($success) {
                     set_alert('success', _l('updated_successfully', _l('proposal')));
                 }
-                if ($this->set_proposal_pipeline_autoload($id)) {
-                    redirect(admin_url('proposals'));
-                } else {
-                    redirect(admin_url('proposals/list_proposals/' . $id));
-                }
+                redirect(admin_url('proposals/proposal/' . $id));
             }
         }
         if ($id == '') {

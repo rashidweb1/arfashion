@@ -11,14 +11,14 @@
         <div class="_buttons">
             <?php if (staff_can('create',  'proposals')) { ?>
             <a href="<?php echo admin_url('proposals/proposal'); ?>"
-                class="btn btn-primary pull-left display-block new-proposal-btn">
+                class="btn btn-primary pull-left display-block new-proposal-btn" target="_blank">
                 <i class="fa-regular fa-plus tw-mr-1"></i>
                 <?php echo _l('new_proposal'); ?>
             </a>
             <?php } ?>
             <a href="<?php echo admin_url('proposals/pipeline/' . $switch_pipeline); ?>"
                 class="btn btn-default mleft5 pull-left switch-pipeline hidden-xs" data-toggle="tooltip"
-                data-placement="top" data-title="<?php echo _l('switch_to_pipeline'); ?>">
+                data-placement="top" data-title="<?php echo _l('switch_to_pipeline'); ?>" style="display: none;">
                 <i class="fa-solid fa-grip-vertical"></i>
             </a>
             <div class="pull-right">

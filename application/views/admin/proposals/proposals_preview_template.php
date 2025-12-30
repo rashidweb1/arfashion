@@ -39,83 +39,6 @@
                                 class="badge total_comments <?php echo $total_comments === 0 ? 'hide' : ''; ?>"><?php echo $total_comments ?></span>
                         </a>
                     </li>
-                    <li role="presentation">
-                        <a href="#tab_reminders"
-                            onclick="initDataTable('.table-reminders', admin_url + 'misc/get_reminders/' + <?php echo $proposal->id ; ?> + '/' + 'proposal', undefined, undefined, undefined,[1,'asc']); return false;"
-                            aria-controls="tab_reminders" role="tab" data-toggle="tab">
-                            <?php echo _l('estimate_reminders'); ?>
-                            <?php
-                     $total_reminders = total_rows(
-                      db_prefix() . 'reminders',
-                      [
-                       'isnotified' => 0,
-                       'staff'      => get_staff_user_id(),
-                       'rel_type'   => 'proposal',
-                       'rel_id'     => $proposal->id,
-                       ]
-                  );
-                     if ($total_reminders > 0) {
-                         echo '<span class="badge">' . $total_reminders . '</span>';
-                     }
-                     ?>
-                        </a>
-                    </li>
-                    <li role="presentation" class="tab-separator">
-                        <a href="#tab_tasks"
-                            onclick="init_rel_tasks_table(<?php echo e($proposal->id); ?>,'proposal'); return false;"
-                            aria-controls="tab_tasks" role="tab" data-toggle="tab">
-                            <?php echo _l('tasks'); ?>
-                        </a>
-                    </li>
-                    <li role="presentation" class="tab-separator">
-                        <a href="#tab_notes"
-                            onclick="get_sales_notes(<?php echo e($proposal->id); ?>,'proposals'); return false"
-                            aria-controls="tab_notes" role="tab" data-toggle="tab">
-                            <?php echo _l('estimate_notes'); ?>
-                            <span class="notes-total">
-                                <?php if ($totalNotes > 0) { ?>
-                                <span class="badge"><?php echo e($totalNotes); ?></span>
-                                <?php } ?>
-                            </span>
-                        </a>
-                    </li>
-                    <li role="presentation" class="tab-separator">
-                        <a href="#tab_templates"
-                            onclick="get_templates('proposals', <?php echo $proposal->id ?? '' ?>); return false"
-                            aria-controls="tab_templates" role="tab" data-toggle="tab">
-                            <?php
-                             echo _l('templates');
-                            $conditions = ['type' => 'proposals'];
-                            if (staff_cant('view_all_templates', 'proposals')) {
-                                $conditions['addedfrom'] = get_staff_user_id();
-                                $conditions['type']      = 'proposals';
-                            }
-                            $total_templates = total_rows(db_prefix() . 'templates', $conditions);
-                            ?>
-                            <span
-                                class="badge total_templates <?php echo $total_templates === 0 ? 'hide' : ''; ?>"><?php echo $total_templates ?></span>
-                        </a>
-                    </li>
-                    <li role="presentation" data-toggle="tooltip" title="<?php echo _l('emails_tracking'); ?>"
-                        class="tab-separator">
-                        <a href="#tab_emails_tracking" aria-controls="tab_emails_tracking" role="tab" data-toggle="tab">
-                            <?php if (!is_mobile()) { ?>
-                            <i class="fa-regular fa-envelope-open" aria-hidden="true"></i>
-                            <?php } else { ?>
-                            <?php echo _l('emails_tracking'); ?>
-                            <?php } ?>
-                        </a>
-                    </li>
-                    <li role="presentation" data-toggle="tooltip" data-title="<?php echo _l('view_tracking'); ?>"
-                        class="tab-separator">
-                        <a href="#tab_views" aria-controls="tab_views" role="tab" data-toggle="tab">
-                            <?php if (!is_mobile()) { ?>
-                            <i class="fa fa-eye"></i>
-                            <?php } else { ?>
-                            <?php echo _l('view_tracking'); ?>
-                            <?php } ?>
-                        </a>
-                    </li>
                     <li role="presentation" data-toggle="tooltip" data-title="<?php echo _l('toggle_full_view'); ?>"
                         class="tab-separator toggle_view">
                         <a href="#" onclick="small_table_full_view(); return false;">
@@ -134,7 +57,7 @@
                 <?php if (staff_can('edit',  'proposals')) { ?>
                 <a href="<?php echo admin_url('proposals/proposal/' . $proposal->id); ?>" data-placement="left"
                     data-toggle="tooltip" title="<?php echo _l('proposal_edit'); ?>"
-                    class="btn btn-default btn-with-tooltip" data-placement="bottom"><i
+                    class="btn btn-default btn-with-tooltip" data-placement="bottom" target="_blank"><i
                         class="fa-regular fa-pen-to-square"></i></a>
                 <?php } ?>
                 <div class="btn-group">
@@ -223,7 +146,7 @@
                 <?php if ($proposal->estimate_id == null && $proposal->invoice_id == null) { ?>
                 <?php if (staff_can('create',  'estimates') || staff_can('create',  'invoices')) { ?>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle<?php if ($proposal->rel_type == 'customer' && total_rows(db_prefix() . 'clients', ['active' => 0, 'userid' => $proposal->rel_id]) > 0) {
+                    <button type="button" class="hide btn btn-success dropdown-toggle<?php if ($proposal->rel_type == 'customer' && total_rows(db_prefix() . 'clients', ['active' => 0, 'userid' => $proposal->rel_id]) > 0) {
                                 echo ' disabled';
                             } ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo _l('proposal_convert'); ?> <span class="caret"></span>
@@ -449,67 +372,6 @@
                                     onclick="add_proposal_comment();"><?php echo _l('proposal_add_comment'); ?></button>
                             </div>
                         </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="tab_notes">
-                        <?php echo form_open(admin_url('proposals/add_note/' . $proposal->id), ['id' => 'sales-notes', 'class' => 'proposal-notes-form']); ?>
-                        <?php echo render_textarea('description'); ?>
-                        <div class="text-right">
-                            <button type="submit"
-                                class="btn btn-primary mtop15 mbot15"><?php echo _l('estimate_add_note'); ?></button>
-                        </div>
-                        <?php echo form_close(); ?>
-                        <hr />
-                        <div class="mtop20" id="sales_notes_area"></div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="tab_templates">
-                        <div class="row proposal-templates">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary"
-                                    onclick="add_template('proposals',<?php echo $proposal->id ?? '' ?>);">
-                                    <?php echo _l('add_template'); ?>
-                                </button>
-                                <hr>
-                            </div>
-                            <div class="col-md-12">
-                                <div id="proposal-templates" class="proposal-templates-wrapper"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane ptop10" id="tab_emails_tracking">
-                        <?php
-                     $this->load->view(
-                            'admin/includes/emails_tracking',
-                            [
-                       'tracked_emails' => get_tracked_emails($proposal->id, 'proposal'), ]
-                        );
-                     ?>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="tab_tasks">
-                        <?php init_relation_tasks_table([ 'data-new-rel-id' => $proposal->id, 'data-new-rel-type' => 'proposal'], 'tasksFilters'); ?>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="tab_reminders">
-                        <a href="#" data-toggle="modal" class="btn btn-primary"
-                            data-target=".reminder-modal-proposal-<?php echo e($proposal->id); ?>"><i
-                                class="fa-regular fa-bell"></i> <?php echo _l('proposal_set_reminder_title'); ?></a>
-                        <hr />
-                        <?php render_datatable([ _l('reminder_description'), _l('reminder_date'), _l('reminder_staff'), _l('reminder_is_notified')], 'reminders'); ?>
-                        <?php $this->load->view('admin/includes/modals/reminder', ['id' => $proposal->id, 'name' => 'proposal', 'members' => $members, 'reminder_title' => _l('proposal_set_reminder_title')]); ?>
-                    </div>
-                    <div role="tabpanel" class="tab-pane ptop10" id="tab_views">
-                        <?php
-                     $views_activity = get_views_tracking('proposal', $proposal->id);
-                       if (count($views_activity) === 0) {
-                           echo '<h4 class="tw-m-0 tw-text-base tw-font-medium tw-text-neutral-500">' . _l('not_viewed_yet', _l('proposal_lowercase')) . '</h4>';
-                       }
-                     foreach ($views_activity as $activity) { ?>
-                        <p class="text-success no-margin">
-                            <?php echo _l('view_date') . ': ' . _dt($activity['date']); ?>
-                        </p>
-                        <p class="text-muted">
-                            <?php echo _l('view_ip') . ': ' . $activity['view_ip']; ?>
-                        </p>
-                        <hr />
-                        <?php } ?>
                     </div>
                     <?php hooks()->do_action('after_admin_invoice_proposal_template_tab_content_last_item', $proposal); ?>
                 </div>

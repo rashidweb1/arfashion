@@ -121,7 +121,7 @@ class Credit_notes extends AdminController
                 if ($success) {
                     set_alert('success', _l('updated_successfully', _l('credit_note')));
                 }
-                redirect(admin_url('credit_notes/list_credit_notes/' . $id));
+                redirect(admin_url('credit_notes/credit_note/' . $id));
             }
         }
         if ($id == '') {

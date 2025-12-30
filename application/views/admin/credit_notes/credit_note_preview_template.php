@@ -32,7 +32,7 @@
                         ?>
                             </a>
                         </li>
-                        <li role="presentation" class="tab-separator">
+                        <li role="presentation" class="tab-separator" style="display: none;">
                             <a href="#tab_reminders"
                                 onclick="initDataTable('.table-reminders', admin_url + 'misc/get_reminders/' + <?php echo $credit_note->id ; ?> + '/' + 'credit_note', undefined, undefined, undefined,[1,'asc']); return false;"
                                 aria-controls="tab_reminders" role="tab" data-toggle="tab">
@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li role="presentation" data-toggle="tooltip" title="<?php echo _l('emails_tracking'); ?>"
-                            class="tab-separator">
+                            class="tab-separator" style="display: none;">
                             <a href="#tab_emails_tracking" aria-controls="tab_emails_tracking" role="tab"
                                 data-toggle="tab">
                                 <?php if (!is_mobile()) { ?>

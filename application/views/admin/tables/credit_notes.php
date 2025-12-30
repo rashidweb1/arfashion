@@ -91,7 +91,7 @@ return App_table::find('credit_notes')
             $numberOutput .= '<div class="row-options">';
 
             if (staff_can('edit',  'credit_notes')) {
-                $numberOutput .= '<a href="' . admin_url('credit_notes/credit_note/' . $aRow['id']) . '">' . _l('edit') . '</a>';
+                $numberOutput .= '<a href="' . admin_url('credit_notes/credit_note/' . $aRow['id']) . '" target="_blank">' . _l('edit') . '</a>';
             }
             $numberOutput .= '</div>';
 
@@ -100,7 +100,7 @@ return App_table::find('credit_notes')
             $row[] = e(_d($aRow['date']));
 
             if (empty($aRow['deleted_customer_name'])) {
-                $row[] = '<a href="' . admin_url('clients/client/' . $aRow['clientid']) . '">' . e($aRow['company']) . '</a>';
+                $row[] = '<a href="' . admin_url('clients/client/' . $aRow['clientid']) . '" target="_blank">' . e($aRow['company']) . '</a>';
             } else {
                 $row[] = e($aRow['deleted_customer_name']);
             }

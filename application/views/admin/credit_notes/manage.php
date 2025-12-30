@@ -8,7 +8,7 @@
                     <div class="_buttons">
                         <?php if (staff_can('create',  'credit_notes')) { ?>
                         <a href="<?php echo admin_url('credit_notes/credit_note'); ?>"
-                            class="btn btn-primary pull-left display-block">
+                            class="btn btn-primary pull-left display-block" target="_blank">
                             <i class="fa-regular fa-plus tw-mr-1"></i>
                             <?php echo _l('new_credit_note'); ?>
                         </a>

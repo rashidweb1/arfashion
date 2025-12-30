@@ -358,7 +358,7 @@ class Invoices extends AdminController
                     set_alert('success', _l('updated_successfully', _l('invoice')));
                 }
 
-                redirect(admin_url('invoices/list_invoices/' . $id));
+                redirect(admin_url('invoices/invoice/' . $id));
             }
         }
         if ($id == '') {

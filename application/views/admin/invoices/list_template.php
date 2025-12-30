@@ -5,18 +5,18 @@
             <?php $this->load->view('admin/invoices/invoices_top_stats'); ?>
             <?php if (staff_can('create',  'invoices')) { ?>
                 <a href="<?php echo admin_url('invoices/invoice'); ?>"
-                    class="btn btn-primary pull-left new new-invoice-list mright5">
+                    class="btn btn-primary pull-left new new-invoice-list mright5" target="_blank">
                     <i class="fa-regular fa-plus tw-mr-1"></i>
                     <?php echo _l('create_new_invoice'); ?>
                 </a>
             <?php } ?>
-            <?php if (!isset($project) && !isset($customer) && staff_can('create', 'payments')) { ?>
+            <?php if (false && !isset($project) && !isset($customer) && staff_can('create', 'payments')) { ?>
                 <button id="add-batch-payment" onclick="add_batch_payment()" class="btn btn-primary pull-left">
                     <i class="fa-solid fa-file-invoice tw-mr-1"></i>
                     <?php echo _l('batch_payments'); ?>
                 </button>
             <?php } ?>
-            <?php if (!isset($project)) { ?>
+            <?php if (false && !isset($project)) { ?>
                 <a href="<?php echo admin_url('invoices/recurring'); ?>" class="btn btn-default pull-left mleft5">
                     <i class="fa-solid fa-repeat tw-mr-1"></i>
                     <?php echo _l('invoices_list_recurring'); ?>

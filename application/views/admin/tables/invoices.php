@@ -99,7 +99,7 @@ return App_table::find('invoices')
 
             $numberOutput .= '<a href="' . site_url('invoice/' . $aRow['id'] . '/' . $aRow['hash']) . '" target="_blank">' . _l('view') . '</a>';
             if (staff_can('edit',  'invoices')) {
-                $numberOutput .= ' | <a href="' . admin_url('invoices/invoice/' . $aRow['id']) . '">' . _l('edit') . '</a>';
+                $numberOutput .= ' | <a href="' . admin_url('invoices/invoice/' . $aRow['id']) . '" target="_blank">' . _l('edit') . '</a>';
             }
             $numberOutput .= '</div>';
 
@@ -114,7 +114,7 @@ return App_table::find('invoices')
             $row[] = e(_d($aRow['date']));
 
             if (empty($aRow['deleted_customer_name'])) {
-                $row[] = '<a href="' . admin_url('clients/client/' . $aRow['clientid']) . '">' . e($aRow['company']) . '</a>';
+                $row[] = '<a href="' . admin_url('clients/client/' . $aRow['clientid']) . '" target="_blank">' . e($aRow['company']) . '</a>';
             } else {
                 $row[] = e($aRow['deleted_customer_name']);
             }

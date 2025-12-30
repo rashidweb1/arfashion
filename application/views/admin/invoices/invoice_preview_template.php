@@ -71,7 +71,7 @@
                             </a>
                         </li>
                         <?php } ?>
-                        <li role="presentation">
+                        <li role="presentation" style="display: none;">
                             <a href="#tab_tasks"
                                 onclick="init_rel_tasks_table(<?php echo e($invoice->id); ?>,'invoice'); return false;"
                                 aria-controls="tab_tasks" role="tab" data-toggle="tab">
@@ -83,7 +83,7 @@
                                 <?php echo _l('invoice_view_activity_tooltip'); ?>
                             </a>
                         </li>
-                        <li role="presentation">
+                        <li role="presentation" style="display: none;">
                             <a href="#tab_reminders"
                                 onclick="initDataTable('.table-reminders', admin_url + 'misc/get_reminders/' + <?php echo $invoice->id ; ?> + '/' + 'invoice', undefined, undefined,undefined,[1,'asc']); return false;"
                                 aria-controls="tab_reminders" role="tab" data-toggle="tab">
@@ -116,7 +116,7 @@
                             </a>
                         </li>
                         <li role="presentation" data-toggle="tooltip" title="<?php echo _l('emails_tracking'); ?>"
-                            class="tab-separator">
+                            class="tab-separator" style="display: none;">
                             <a href="#tab_emails_tracking" aria-controls="tab_emails_tracking" role="tab"
                                 data-toggle="tab">
                                 <?php if (!is_mobile()) { ?>
@@ -127,7 +127,7 @@
                             </a>
                         </li>
                         <li role="presentation" data-toggle="tooltip" title="<?php echo _l('view_tracking'); ?>"
-                            class="tab-separator">
+                            class="tab-separator" style="display: none;">
                             <a href="#tab_views" aria-controls="tab_views" role="tab" data-toggle="tab">
                                 <?php if (!is_mobile()) { ?>
                                 <i class="fa fa-eye"></i>

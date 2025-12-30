@@ -96,8 +96,17 @@ class Expenses extends AdminController
             if ($success) {
                 set_alert('success', _l('updated_successfully', _l('expense')));
             }
+
+            if($this->app_modules->is_active('nex_reports')){
+                echo json_encode([
+                    'url'       => admin_url('nex_reports/cashflow?section=expense-report'),
+                    'expenseid' => $id,
+                ]);
+                die;                        
+            }
+
             echo json_encode([
-                    'url'       => admin_url('expenses/list_expenses/' . $id),
+                    'url'       => admin_url('expenses/expense/' . $id),
                     'expenseid' => $id,
                 ]);
             die;

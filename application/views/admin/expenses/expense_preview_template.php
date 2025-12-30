@@ -20,13 +20,13 @@
                             </a>
                         </li>
                         <?php } ?>
-                        <li role="presentation">
+                        <?php /* <li role="presentation">
                             <a href="#tab_tasks"
                                 onclick="init_rel_tasks_table(<?php echo e($expense->expenseid); ?>,'expense'); return false;"
                                 aria-controls="tab_tasks" role="tab" data-toggle="tab">
                                 <?php echo _l('tasks'); ?>
                             </a>
-                        </li>
+                        </li> 
                         <li role="presentation" class="tab-separator">
                             <a href="#tab_reminders"
                                 onclick="initDataTable('.table-reminders', admin_url + 'misc/get_reminders/' + <?php echo $expense->id ; ?> + '/' + 'expense', undefined, undefined,undefined,[1,'ASC']); return false;"
@@ -47,7 +47,7 @@
                         }
                         ?>
                             </a>
-                        </li>
+                        </li>*/ ?>
                         <li role="presentation" class="tab-separator toggle_view">
                             <a href="#" onclick="small_table_full_view(); return false;" data-placement="left"
                                 data-toggle="tooltip" data-title="<?php echo _l('toggle_full_view'); ?>">
@@ -90,29 +90,29 @@
                         class="btn btn-primary mleft10 pull-right"><?php echo e(format_invoice_number($invoice->id)); ?></a>
                     <?php } ?>
                     <div class="pull-right">
-                        <?php if (staff_can('edit',  'expenses')) { ?>
+                        <?php /*if (staff_can('edit',  'expenses')) { ?>
                         <a class="btn btn-default btn-with-tooltip"
                             href="<?php echo admin_url('expenses/expense/' . $expense->expenseid); ?>"
                             data-toggle="tooltip" data-placement="bottom" title="<?php echo _l('expense_edit'); ?>"><i
                                 class="fa-regular fa-pen-to-square"></i></a>
-                        <?php } ?>
+                        <?php }*/ ?>
                         <a class="btn btn-default btn-with-tooltip" href="#"
                             onclick="print_expense_information(); return false;" data-toggle="tooltip"
                             data-placement="bottom" title="<?php echo _l('print'); ?>">
                             <i class="fa fa-print"></i>
                         </a>
-                        <?php if (staff_can('create',  'expenses')) { ?>
+                        <?php /*if (staff_can('create',  'expenses')) { ?>
                         <a class="btn btn-default btn-with-tooltip"
                             href="<?php echo admin_url('expenses/copy/' . $expense->expenseid); ?>"
                             data-toggle="tooltip" data-placement="bottom" title="<?php echo _l('expense_copy'); ?>"><i
                                 class="fa-regular fa-copy"></i></a>
-                        <?php } ?>
-                        <?php if (staff_can('delete',  'expenses')) { ?>
+                        <?php }*/ ?>
+                        <?php /*if (staff_can('delete',  'expenses')) { ?>
                         <a class="btn btn-danger btn-with-tooltip _delete"
                             href="<?php echo admin_url('expenses/delete/' . $expense->expenseid); ?>"
                             data-toggle="tooltip" data-placement="bottom" title="<?php echo _l('expense_delete'); ?>"><i
                                 class="fa fa-remove"></i></a>
-                        <?php } ?>
+                        <?php }*/ ?>
                     </div>
                 </div>
             </div>

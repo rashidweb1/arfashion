@@ -117,11 +117,11 @@ return App_table::find('expenses')
             $categoryOutput .= '<a href="' . admin_url('expenses/list_expenses/' . $aRow['id']) . '" onclick="init_expense(' . $aRow['id'] . ');return false;">' . _l('view') . '</a>';
 
             if (staff_can('edit',  'expenses')) {
-                $categoryOutput .= ' | <a href="' . admin_url('expenses/expense/' . $aRow['id']) . '">' . _l('edit') . '</a>';
+                $categoryOutput .= ' | <a href="' . admin_url('expenses/expense/' . $aRow['id']) . '" target="_blank">' . _l('edit') . '</a>';
             }
 
             if (staff_can('delete',  'expenses')) {
-                $categoryOutput .= ' | <a href="' . admin_url('expenses/delete/' . $aRow['id']) . '" class="text-danger _delete">' . _l('delete') . '</a>';
+                $categoryOutput .= ' | <a href="' . admin_url('expenses/delete/' . $aRow['id']) . '" class="text-danger expense-delete" data-id="' . $aRow['id'] . '">' . _l('delete') . '</a>';
             }
 
             $categoryOutput .= '</div>';

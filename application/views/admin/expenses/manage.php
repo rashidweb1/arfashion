@@ -7,11 +7,11 @@
                 <div class="tw-mb-2 sm:tw-mb-4">
                     <div class="_buttons">
                         <?php if (staff_can('create',  'expenses')) { ?>
-                        <a href="<?php echo admin_url('expenses/expense'); ?>" class="btn btn-primary">
+                        <a href="<?php echo admin_url('expenses/expense'); ?>" class="btn btn-primary" target="_blank">
                             <i class="fa-regular fa-plus tw-mr-1"></i>
                             <?php echo _l('new_expense'); ?>
                         </a>
-                        <a href="<?php echo admin_url('expenses/import'); ?>" class="btn btn-primary mleft5">
+                        <a href="<?php echo admin_url('expenses/import'); ?>" class="btn btn-primary mleft5" style="display:none;">
                             <i class="fa-solid fa-upload tw-mr-1"></i>
                             <?php echo _l('import_expenses'); ?>
                         </a>
@@ -138,6 +138,48 @@ $(function() {
         parameters['include_note'] = $('#inc_note').prop('checked');
         window.location.href = buildUrl(admin_url + 'expenses/convert_to_invoice/' + $('body').find(
             '.expense_convert_btn').attr('data-id'), parameters);
+    });
+
+    // Handle expense delete with datatable refresh instead of page reload
+    $('body').on('click', '.expense-delete', function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation(); // Prevent the default _delete handler from running
+        
+        var deleteLink = $(this);
+        var expenseId = deleteLink.data('id');
+        var deleteUrl = deleteLink.attr('href');
+        
+        if (confirm_delete()) {
+            $.ajax({
+                url: deleteUrl,
+                type: 'GET',
+                success: function(response) {
+                    // Show success message
+                    var successMessage = 'Expense deleted successfully';
+                    if (typeof app !== 'undefined' && app.lang && app.lang.deleted) {
+                        successMessage = app.lang.deleted + ' ' + (app.lang.expense || 'expense');
+                    } else if (typeof appLang !== 'undefined' && appLang.deleted) {
+                        successMessage = appLang.deleted + ' ' + (appLang.expense || 'expense');
+                    }
+                    alert_float('success', successMessage);
+                    
+                    // Refresh the datatable
+                    if ($.fn.DataTable.isDataTable('.table-expenses')) {
+                        $('.table-expenses').DataTable().ajax.reload(null, false);
+                    }
+                },
+                error: function() {
+                    // Show error message
+                    alert_float('danger', 'Failed to delete expense');
+                    
+                    // Refresh the datatable even on error to ensure consistency
+                    if ($.fn.DataTable.isDataTable('.table-expenses')) {
+                        $('.table-expenses').DataTable().ajax.reload(null, false);
+                    }
+                }
+            });
+        }
+        return false;
     });
 });
 </script>

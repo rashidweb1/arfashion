@@ -77,7 +77,11 @@
 				$(event).addClass('disabled');
 				setTimeout(function() {
 					$.post(admin_url + 'manufacturing/mrp_product_delete_bulk_action', data).done(function() {
-						window.location.reload();
+						alert_float('success', "<?php echo _l('mrp_deleted'); ?>");
+						if ($.fn.DataTable.isDataTable('.table-bill_of_material_table')) {
+							$('.table-bill_of_material_table').DataTable().ajax.reload(null, false);
+						}
+						$('#bill_of_material_table_bulk_actions').modal('hide');
 					}).fail(function(data) {
 						$('#bill_of_material_table_bulk_actions').modal('hide');
 						alert_float('danger', data.responseText);
@@ -89,6 +93,73 @@
 
 		}
 	}
+
+	// Handle bill of material delete with datatable refresh instead of page reload
+	$('body').on('click', '.bom-delete', function(e) {
+		"use strict";
+		e.preventDefault();
+		e.stopImmediatePropagation(); // Prevent the default _delete handler from running
+		
+		var deleteLink = $(this);
+		var deleteUrl = deleteLink.attr('href');
+		
+		if (confirm_delete()) {
+			$.ajax({
+				url: deleteUrl,
+				type: 'GET',
+				dataType: 'json',
+				success: function(response) {
+					// Handle both JSON and HTML responses
+					var jsonResponse = response;
+					if (typeof response === 'string') {
+						try {
+							jsonResponse = JSON.parse(response);
+						} catch(e) {
+							// If response is HTML, assume success and refresh table
+							alert_float('success', "<?php echo _l('mrp_deleted'); ?>");
+							if ($.fn.DataTable.isDataTable('.table-bill_of_material_table')) {
+								$('.table-bill_of_material_table').DataTable().ajax.reload(null, false);
+							}
+							return;
+						}
+					}
+					
+					// Show success/error message
+					if (jsonResponse && jsonResponse.success) {
+						alert_float('success', jsonResponse.message || "<?php echo _l('mrp_deleted'); ?>");
+					} else {
+						alert_float('warning', (jsonResponse && jsonResponse.message) ? jsonResponse.message : "<?php echo _l('problem_deleting'); ?>");
+					}
+					
+					// Refresh the datatable
+					if ($.fn.DataTable.isDataTable('.table-bill_of_material_table')) {
+						$('.table-bill_of_material_table').DataTable().ajax.reload(null, false);
+					}
+				},
+				error: function(xhr) {
+					// Try to parse JSON response, fallback to text
+					var message = "<?php echo _l('problem_deleting'); ?>";
+					try {
+						if (xhr.responseText) {
+							var response = JSON.parse(xhr.responseText);
+							if (response.message) {
+								message = response.message;
+							}
+						}
+					} catch(e) {
+						// If not JSON, use default message
+					}
+					alert_float('danger', message);
+					
+					// Refresh the datatable even on error to ensure consistency
+					if ($.fn.DataTable.isDataTable('.table-bill_of_material_table')) {
+						$('.table-bill_of_material_table').DataTable().ajax.reload(null, false);
+					}
+				}
+			});
+		}
+		return false;
+	});
 
 
 </script>

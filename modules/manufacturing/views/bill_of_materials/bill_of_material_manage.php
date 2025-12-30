@@ -19,7 +19,7 @@
 						<?php if(has_permission('manufacturing', '', 'create')){ ?>
 							<div class="col-md-3">
 								<div class="_buttons">
-									<a href="#" onclick="add_bill_of_material(); return false;" class="btn btn-info mbot10"><?php echo _l('add_bills_of_material'); ?></a>
+									<a href="<?php echo admin_url('manufacturing/bill_of_material_detail_manage'); ?>" target="_blank" class="btn btn-info mbot10"><?php echo _l('add_bills_of_material'); ?></a>
 
 									<a href="<?php echo admin_url('manufacturing/import_xlsx_contract'); ?>" class=" btn mright5 btn-default pull-left hide">
 										<?php echo _l('work_center_import'); ?>

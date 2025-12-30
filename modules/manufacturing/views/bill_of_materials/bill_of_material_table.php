@@ -105,10 +105,10 @@ foreach ($rResult as $aRow) {
 			$_data = $aRow['id'];
 
 		}elseif ($aColumns[$i] == 'product_id') {
-			$code = '<a href="' . admin_url('manufacturing/bill_of_material_detail_manage/' . $aRow['id']) . '">' . mrp_get_product_name($aRow['product_id']) . '</a>';
+			$code = '<a href="' . admin_url('manufacturing/bill_of_material_detail_manage/' . $aRow['id']) . '" target="_blank">' . mrp_get_product_name($aRow['product_id']) . '</a>';
 			$code .= '<div class="row-options">';
 
-			$code .= '<a href="' . admin_url('manufacturing/bill_of_material_detail_manage/' . $aRow['id']) . '" >' . _l('view') . '</a>';
+			$code .= '<a href="' . admin_url('manufacturing/bill_of_material_detail_manage/' . $aRow['id']) . '" target="_blank">' . _l('view') . '</a>';
 
 			if (has_permission('manufacturing', '', 'edit') || is_admin()) {
 
@@ -117,10 +117,10 @@ foreach ($rResult as $aRow) {
 
 			if (has_permission('manufacturing', '', 'edit') || is_admin()) {
 
-				$code .= ' | <a href="' . admin_url('manufacturing/bill_of_material_detail_manage/' . $aRow['id']) . '" >' . _l('edit') . '</a>';
+				$code .= ' | <a href="' . admin_url('manufacturing/bill_of_material_detail_manage/' . $aRow['id']) . '" target="_blank">' . _l('edit') . '</a>';
 			}
 			if (has_permission('manufacturing', '', 'delete') || is_admin()) {
-				$code .= ' | <a href="' . admin_url('manufacturing/delete_bill_of_material/' . $aRow['id']) . '" class="text-danger _delete">' . _l('delete') . '</a>';
+				$code .= ' | <a href="' . admin_url('manufacturing/delete_bill_of_material/' . $aRow['id']) . '" class="text-danger bom-delete">' . _l('delete') . '</a>';
 			}
 
 			$code .= '</div>';

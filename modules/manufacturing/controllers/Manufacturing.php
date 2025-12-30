@@ -1358,6 +1358,18 @@ class Manufacturing extends AdminController
 		}
 
 		$success = $this->manufacturing_model->delete_bill_of_material($id);
+		
+		// If it's an AJAX request, return JSON response
+		if ($this->input->is_ajax_request()) {
+			if ($success) {
+				echo json_encode(['success' => true, 'message' => _l('mrp_deleted')]);
+			} else {
+				echo json_encode(['success' => false, 'message' => _l('problem_deleting')]);
+			}
+			return;
+		}
+		
+		// Otherwise, redirect as before
 		if ($success) {
 			set_alert('success', _l('mrp_deleted'));
 		} else {

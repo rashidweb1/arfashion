@@ -58,16 +58,16 @@ foreach ($rResult as $aRow) {
 
     $link = admin_url('payments/payment/' . $aRow['id']);
 
-    $options = icon_btn('payments/payment/' . $aRow['id'], 'fa-regular fa-pen-to-square');
+    $options = icon_btn('payments/payment/' . $aRow['id'], 'fa-regular fa-pen-to-square', 'btn-default', ['target' => '_blank']);
 
     if ($hasPermissionDelete) {
         $options .= icon_btn('payments/delete/' . $aRow['id'], 'fa fa-remove', 'btn-danger _delete');
     }
 
-    $numberOutput = '<a href="' . $link . '">' . e($aRow['id']) . '</a>';
+    $numberOutput = '<a target="_blank" href="' . $link . '">' . e($aRow['id']) . '</a>';
 
     $numberOutput .= '<div class="row-options">';
-    $numberOutput .= '<a href="' . $link . '">' . _l('view') . '</a>';
+    $numberOutput .= '<a target="_blank" href="' . $link . '">' . _l('view') . '</a>';
     if ($hasPermissionDelete) {
         $numberOutput .= ' | <a href="' . admin_url('payments/delete/' . $aRow['id']) . '" class="text-danger _delete">' . _l('delete') . '</a>';
     }
@@ -75,7 +75,7 @@ foreach ($rResult as $aRow) {
 
     $row[] = $numberOutput;
 
-    $row[] = '<a href="' . admin_url('invoices/list_invoices/' . $aRow['invoiceid']) . '">' . e(format_invoice_number($aRow['invoiceid'])) . '</a>';
+    $row[] = '<a target="_blank" href="' . admin_url('invoices/list_invoices/' . $aRow['invoiceid']) . '">' . e(format_invoice_number($aRow['invoiceid'])) . '</a>';
 
     $outputPaymentMode = e($aRow['payment_mode_name']);
 
@@ -95,7 +95,7 @@ foreach ($rResult as $aRow) {
 
     $row[] = e($aRow['transactionid']);
 
-    $row[] = '<a href="' . admin_url('clients/client/' . $aRow['clientid']) . '">' . e($aRow['company']) . '</a>';
+    $row[] = '<a target="_blank" href="' . admin_url('clients/client/' . $aRow['clientid']) . '">' . e($aRow['company']) . '</a>';
 
     $row[] = e(app_format_money($aRow['amount'], $aRow['currency_name']));
 

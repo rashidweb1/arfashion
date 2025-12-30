@@ -259,9 +259,25 @@ class Payments extends AdminController
             access_denied('Delete Payment');
         }
         if (!$id) {
+            if ($this->input->is_ajax_request()) {
+                echo json_encode(['success' => false, 'message' => 'Invalid payment ID']);
+                return;
+            }
             redirect(admin_url('payments'));
         }
         $response = $this->payments_model->delete($id);
+        
+        // Handle AJAX requests
+        if ($this->input->is_ajax_request()) {
+            if ($response == true) {
+                echo json_encode(['success' => true, 'message' => _l('deleted', _l('payment'))]);
+            } else {
+                echo json_encode(['success' => false, 'message' => _l('problem_deleting', _l('payment_lowercase'))]);
+            }
+            return;
+        }
+        
+        // Handle regular requests
         if ($response == true) {
             set_alert('success', _l('deleted', _l('payment')));
         } else {

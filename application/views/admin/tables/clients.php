@@ -89,7 +89,7 @@ return App_table::find('clients')
                 $url .= '?contactid=' . $aRow['contact_id'];
             }
 
-            $company = '<a href="' . $url . '">' . $company . '</a>';
+            $company = '<a href="' . $url . '" target="_blank">' . $company . '</a>';
 
             $company .= '<div class="row-options">';
             $company .= '<a href="' . admin_url('clients/client/' . $aRow['userid'] . ($isPerson && $aRow['contact_id'] ? '?group=contacts' : '')) . '">' . _l('view') . '</a>';
@@ -99,7 +99,7 @@ return App_table::find('clients')
             }
 
             if (!$isPerson) {
-                $company .= ' | <a href="' . admin_url('clients/client/' . $aRow['userid'] . '?group=contacts') . '">' . _l('customer_contacts') . '</a>';
+                $company .= ' | <a href="' . admin_url('clients/client/' . $aRow['userid'] . '?group=contacts') . '" target="_blank">' . _l('customer_contacts') . '</a>';
             }
 
             if ($hasPermissionDelete) {

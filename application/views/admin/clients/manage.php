@@ -7,16 +7,16 @@
                 <div class="_buttons">
                     <?php if (staff_can('create',  'customers')) { ?>
                     <a href="<?php echo admin_url('clients/client'); ?>"
-                        class="btn btn-primary mright5 test pull-left display-block">
+                        class="btn btn-primary mright5 test pull-left display-block" target="_blank">
                         <i class="fa-regular fa-plus tw-mr-1"></i>
                         <?php echo _l('new_client'); ?></a>
                     <a href="<?php echo admin_url('clients/import'); ?>"
-                        class="btn btn-primary pull-left display-block mright5 hidden-xs">
+                        class="btn btn-primary pull-left display-block mright5 hidden-xs" style="display:none !important;">
                         <i class="fa-solid fa-upload tw-mr-1"></i>
                         <?php echo _l('import_customers'); ?></a>
                     <?php } ?>
                     <a href="<?php echo admin_url('clients/all_contacts'); ?>"
-                        class="btn btn-default pull-left display-block mright5">
+                        class="btn btn-default pull-left display-block mright5" target="_blank">
                         <i class="fa-regular fa-user tw-mr-1"></i>
                         <?php echo _l('customer_contacts'); ?>
                     </a>

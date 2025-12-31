@@ -109,6 +109,10 @@
 								$status = isset($manufacturing_order) ? ($manufacturing_order->status) : '';
 								$reference_purchase_request = isset($manufacturing_order) ? ($manufacturing_order->purchase_request_id) : '';
 								$proposal_id = $manufacturing_order->proposal_id; //PO Module
+								
+								// Determine which tab should be active by default
+								$production_tab_active = in_array($status, ['in_progress', 'done']);
+								$component_tab_active = !$production_tab_active;
 								$proposal_to = $this->db->select('proposal_to')->from(db_prefix() . 'proposals')->where(['id' => $proposal_id])->get()->row('proposal_to'); //PO Module
 								$iids = $this->db->select('GROUP_CONCAT(iid) as iids')->from(db_prefix() . 'itemable')->where(['rel_type' => 'proposal', 'rel_id' => $proposal_id])->get()->row('iids'); //PO Module
 
@@ -228,7 +232,7 @@
 										<div class="scroller arrow-right"><i class="fa fa-angle-right"></i></div>
 										<div class="horizontal-tabs">
 											<ul class="nav nav-tabs nav-tabs-horizontal mbot15" role="tablist">
-												<li role="presentation" class="active">
+												<li role="presentation" class="<?php echo $component_tab_active ? 'active' : ''; ?>">
 													<a href="#component_tab" aria-controls="component_tab" role="tab" data-toggle="tab">
 														<span class="glyphicon glyphicon-align-justify"></span>&nbsp;<?php echo _l('tab_component_tab'); ?>
 													</a>
@@ -259,7 +263,7 @@
 													</a>
 												</li>		
 												<?php if(in_array($status, ['in_progress', 'done'])): ?>										
-												<li role="presentation" class="">
+												<li role="presentation" class="<?php echo $production_tab_active ? 'active' : ''; ?>">
 													<a href="#inventory_production_tab" aria-controls="inventory_production_tab" role="tab" data-toggle="tab">
 														<span class="fa-solid fa-industry"></span>&nbsp;<?php echo _l('Production'); ?>
 													</a>
@@ -271,8 +275,8 @@
 									<br>
 
 
-									<div class="tab-content active">
-										<div role="tabpanel" class="tab-pane active" id="component_tab">
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane <?php echo $component_tab_active ? 'active' : ''; ?>" id="component_tab">
 											<div class="form"> 
 												<div id="product_tab_hs" class="product_tab handsontable htColumnHeaders">
 												</div>
@@ -406,7 +410,7 @@
 
 										</div>
 
-										<div role="tabpanel" class="tab-pane" id="inventory_production_tab">
+										<div role="tabpanel" class="tab-pane <?php echo $production_tab_active ? 'active' : ''; ?>" id="inventory_production_tab">
 										    <div id="modal_wrapper"></div>
 											<div class="text-right">
 												<?php if($status != 'cancelled'){ ?>

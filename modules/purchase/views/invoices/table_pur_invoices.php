@@ -141,15 +141,15 @@ foreach ($rResult as $aRow) {
         if($aColumns[$i] == 'invoice_number'){
             $numberOutput = '';
     
-            $numberOutput = '<a href="' . admin_url('purchase/purchase_invoice/' . $aRow['id']) . '"  >'.$aRow['invoice_number']. '</a>';
+            $numberOutput = '<a href="' . admin_url('purchase/purchase_invoice/' . $aRow['id']) . '" target="_blank">'.$aRow['invoice_number']. '</a>';
             
             $numberOutput .= '<div class="row-options">';
 
             if (has_permission('purchase_invoices', '', 'view') || has_permission('purchase_invoices', '', 'view_own')) {
-                $numberOutput .= ' <a href="' . admin_url('purchase/purchase_invoice/' . $aRow['id']) . '" >' . _l('view') . '</a>';
+                $numberOutput .= ' <a href="' . admin_url('purchase/purchase_invoice/' . $aRow['id']) . '" target="_blank">' . _l('view') . '</a>';
             }
             if ((has_permission('purchase_invoices', '', 'edit') || is_admin()) ) {
-                $numberOutput .= ' | <a href="' . admin_url('purchase/pur_invoice/' . $aRow['id']) . '">' . _l('edit') . '</a>';
+                $numberOutput .= ' | <a href="' . admin_url('purchase/pur_invoice/' . $aRow['id']) . '" target="_blank">' . _l('edit') . '</a>';
             }
             if (has_permission('purchase_invoices', '', 'delete') || is_admin()) {
                 $numberOutput .= ' | <a href="' . admin_url('purchase/delete_pur_invoice/' . $aRow['id']) . '" class="text-danger _delete">' . _l('delete') . '</a>';

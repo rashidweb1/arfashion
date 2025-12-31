@@ -28,6 +28,54 @@
                 .columns.adjust()
                 .responsive.recalc();
     });
+
+    // Handle purchase invoice delete with datatable refresh instead of page reload
+    $('.table-table_pur_invoices').off('click', '._delete').on('click', '._delete', function(e) {
+        "use strict";
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+        
+        var deleteLink = $(this);
+        var deleteUrl = deleteLink.attr('href');
+        
+        if (confirm_delete()) {
+            $.ajax({
+                url: deleteUrl,
+                type: 'GET',
+                success: function(response) {
+                    // Show success message
+                    alert_float('success', 'Purchase invoice deleted successfully');
+                    
+                    // Refresh the datatable
+                    if ($.fn.DataTable.isDataTable('.table-table_pur_invoices')) {
+                        table_invoice.DataTable().ajax.reload(null, false);
+                    }
+                },
+                error: function(xhr) {
+                    // Try to parse response for error message
+                    var message = 'Problem deleting purchase invoice';
+                    try {
+                        if (xhr.responseText) {
+                            // Check if response contains referenced error
+                            if (xhr.responseText.indexOf('is_referenced') !== -1) {
+                                message = 'Problem deleting purchase invoice';
+                            }
+                        }
+                    } catch(e) {
+                        // Use default message
+                    }
+                    alert_float('warning', message);
+                    
+                    // Refresh the datatable even on error to ensure consistency
+                    if ($.fn.DataTable.isDataTable('.table-table_pur_invoices')) {
+                        table_invoice.DataTable().ajax.reload(null, false);
+                    }
+                }
+            });
+        }
+        return false;
+    });
 })(jQuery);
 
 function add_batch_payment_pur() {

@@ -16,12 +16,12 @@
                               </div>
                               <div class="col-md-6 text-right">
                                   <?php if (has_permission('purchase_invoices', '', 'create') || is_admin()) { ?>
-                                      <a href="<?php echo admin_url('purchase/pur_invoice'); ?>" class="btn btn-primary mleft10">
+                                      <a href="<?php echo admin_url('purchase/pur_invoice'); ?>" target="_blank" class="btn btn-primary mleft10">
                                           <i class="fa-regular fa-plus tw-mr-1"></i>
                                           <?php echo _l('Create New Purchase Invoice'); ?>
                                       </a>
                                       <!-- You can add more buttons here -->
-                                      <button id="add-batch-payment" onclick="add_batch_payment_pur()" class="btn btn-primary mleft10">
+                                      <button id="add-batch-payment" onclick="add_batch_payment_pur()" class="btn btn-primary mleft10" style="display: none;">
                                           <i class="fa-solid fa-file-invoice tw-mr-1"></i>
                                           <?php echo _l('batch_payments'); ?>
                                       </button>

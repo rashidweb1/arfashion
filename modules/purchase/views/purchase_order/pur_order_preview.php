@@ -34,6 +34,7 @@
                      <?php echo _l('payment_record'); ?>
                      </a>
                   </li>   
+                  <?php /* Reminders tab hidden
                   <li role="presentation">
                      <a href="#tab_reminders" onclick="initDataTable('.table-reminders', admin_url + 'misc/get_reminders/' + <?php echo pur_html_entity_decode($estimate->id) ;?> + '/' + 'purchase_order', undefined, undefined, undefined,[1,'asc']); return false;" aria-controls="tab_reminders" role="tab" data-toggle="tab">
                      <?php echo _l('estimate_reminders'); ?>
@@ -52,6 +53,7 @@
                         ?>
                      </a>
                   </li>
+                  */ ?>
                      <?php
                      $customer_custom_fields = false;
                      if(total_rows(db_prefix().'customfields',array('fieldto'=>'pur_order','active'=>1)) > 0 ){
@@ -63,11 +65,14 @@
                      </a>
                   </li>
                   <?php } ?>
+                  <?php /* Tasks tab hidden
                   <li role="presentation">
                      <a href="#tab_tasks" onclick="init_rel_tasks_table(<?php echo pur_html_entity_decode($estimate->id); ?>,'pur_order'); return false;" aria-controls="tab_tasks" role="tab" data-toggle="tab">
                      <?php echo _l('tasks'); ?>
                      </a>
                   </li>
+                  */ ?>
+                  <?php /* Notes tab hidden
                   <li role="presentation" class="tab-separator">
                      <a href="#tab_notes" onclick="get_sales_notes(<?php echo pur_html_entity_decode($estimate->id); ?>,'purchase'); return false" aria-controls="tab_notes" role="tab" data-toggle="tab">
                      <?php echo _l('estimate_notes'); ?>
@@ -79,7 +84,9 @@
                      </span>
                      </a>
                   </li>
+                  */ ?>
 
+                  <?php /* Discuss tab hidden
                   <li role="presentation" class="tab-separator">
                     <?php
                               $totalComments = total_rows(db_prefix().'pur_comments',['rel_id' => $estimate->id, 'rel_type' => 'pur_order']);
@@ -88,7 +95,8 @@
                      <?php echo _l('pur_discuss'); ?>
                       <span class="badge comments-indicator<?php echo $totalComments == 0 ? ' hide' : ''; ?>"><?php echo $totalComments; ?></span>
                      </a>
-                  </li> 
+                  </li>
+                  */ ?> 
                   
                   <li role="presentation" class="tab-separator">
                      <a href="#attachment" aria-controls="attachment" role="tab" data-toggle="tab">
@@ -260,9 +268,11 @@
                 <?php echo form_close(); ?>
               </div>
              <?php } ?>
+            <?php /* Tasks tab panel hidden
             <div role="tabpanel" class="tab-pane" id="tab_tasks">
                <?php init_relation_tasks_table(array('data-new-rel-id'=>$estimate->id,'data-new-rel-type'=>'pur_order')); ?>
             </div>
+            */ ?>
             <div role="tabpanel" class="tab-pane ptop10 active" id="tab_estimate">
                <div id="estimate-preview">
                   <div class="row">
@@ -545,12 +555,15 @@
                   </div>
                </div>
             </div>
+            <?php /* Reminders tab panel hidden
             <div role="tabpanel" class="tab-pane" id="tab_reminders">
                <a href="#" data-toggle="modal" class="btn btn-info" data-target=".reminder-modal-purchase_order-<?php echo pur_html_entity_decode($estimate->id); ?>"><i class="fa fa-bell-o"></i> <?php echo _l('estimate_set_reminder_title'); ?></a>
                <hr />
                <?php render_datatable(array( _l( 'reminder_description'), _l( 'reminder_date'), _l( 'reminder_staff'), _l( 'reminder_is_notified')), 'reminders'); ?>
                <?php $this->load->view('admin/includes/modals/reminder',array('id'=>$estimate->id,'name'=>'purchase_order','members'=>$members,'reminder_title'=>_l('estimate_set_reminder_title'))); ?>
             </div>
+            */ ?>
+            <?php /* Notes tab panel hidden
             <div role="tabpanel" class="tab-pane" id="tab_notes">
                <?php echo form_open(admin_url('purchase/add_note/'.$estimate->id),array('id'=>'sales-notes','class'=>'estimate-notes-form')); ?>
                <?php echo render_textarea('description'); ?>
@@ -562,7 +575,9 @@
                <div class="panel_s mtop20 no-shadow" id="sales_notes_area">
                </div>
             </div>
+            */ ?>
 
+            <?php /* Discuss tab panel hidden
             <div role="tabpanel" class="tab-pane" id="discuss">
               <div class="row contract-comments mtop15">
                  <div class="col-md-12">
@@ -573,6 +588,7 @@
                  </div>
               </div>
             </div>
+            */ ?>
 
             <div role="tabpanel" class="tab-pane" id="attachment">
                <?php echo form_open_multipart(admin_url('purchase/purchase_order_attachment/'.$estimate->id),array('id'=>'partograph-attachments-upload')); ?>

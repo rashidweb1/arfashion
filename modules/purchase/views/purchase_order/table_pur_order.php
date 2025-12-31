@@ -175,12 +175,12 @@ foreach ($rResult as $aRow) {
 
             $numberOutput = '';
     
-            $numberOutput = '<a href="' . admin_url('purchase/purchase_order/' . $aRow['id']) . '"  onclick="init_pur_order(' . $aRow['id'] . '); return false;" >'.$aRow['pur_order_number']. '</a>';
+            $numberOutput = '<a href="' . admin_url('purchase/purchase_order/' . $aRow['id']) . '" target="_blank" >'.$aRow['pur_order_number']. '</a>';
             
             $numberOutput .= '<div class="row-options">';
 
             if (has_permission('purchase_orders', '', 'view') || has_permission('purchase_orders', '', 'view_own')) {
-                $numberOutput .= ' <a href="' . admin_url('purchase/purchase_order/' . $aRow['id']) . '" onclick="init_pur_order(' . $aRow['id'] . '); return false;" >' . _l('view') . '</a>';
+                $numberOutput .= ' <a href="' . admin_url('purchase/purchase_order/' . $aRow['id']) . '" target="_blank" >' . _l('view') . '</a>';
             }
             if ((has_permission('purchase_orders', '', 'edit') || is_admin()) && $aRow['approve_status'] != 2 ) {
                 $numberOutput .= ' | <a href="' . admin_url('purchase/pur_order/' . $aRow['id']) . '">' . _l('edit') . '</a>';
@@ -193,7 +193,7 @@ foreach ($rResult as $aRow) {
             $_data = $numberOutput;
 
         }elseif($aColumns[$i] == 'vendor'){
-            $_data = '<a href="' . admin_url('purchase/vendor/' . $aRow['vendor']) . '" >' .  $aRow['company'] . '</a>';
+            $_data = '<a target="_blank" href="' . admin_url('purchase/vendor/' . $aRow['vendor']) . '" >' .  $aRow['company'] . '</a>';
         }elseif ($aColumns[$i] == 'order_date') {
             $_data = _d($aRow['order_date']);
         }elseif($aColumns[$i] == 'approve_status'){

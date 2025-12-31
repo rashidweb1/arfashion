@@ -8,7 +8,7 @@
 	              	<div class="row">    
 	                    <div class="_buttons col-md-3">
 	                    	<?php if (has_permission('purchase_orders', '', 'create') || is_admin()) { ?>
-	                        <a href="<?php echo admin_url('purchase/pur_order'); ?>"class="btn btn-info pull-left mright10 display-block">
+	                        <a href="<?php echo admin_url('purchase/pur_order'); ?>" target="_blank" class="btn btn-info pull-left mright10 display-block">
 	                            <?php echo _l('new_pur_order'); ?>
 	                        </a>
 	                        <?php } ?>

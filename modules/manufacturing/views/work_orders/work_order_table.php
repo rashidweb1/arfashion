@@ -90,10 +90,10 @@ foreach ($rResult as $aRow) {
 			$_data = $aRow['id'];
 
 		}elseif ($aColumns[$i] == 'operation_name') {
-			$code = '<a href="' . admin_url('manufacturing/view_work_order/' . $aRow['id'].'/'.$aRow['manufacturing_order_id']) . '">' . $aRow['operation_name'] . '</a>';
+			$code = '<a href="' . admin_url('manufacturing/view_work_order/' . $aRow['id'].'/'.$aRow['manufacturing_order_id']) . '" target="_blank">' . $aRow['operation_name'] . '</a>';
 			$code .= '<div class="row-options">';
 
-			$code .= '<a href="' . admin_url('manufacturing/view_work_order/' . $aRow['id']).'/'.$aRow['manufacturing_order_id'] . '" >' . _l('view') . '</a>';
+			$code .= '<a href="' . admin_url('manufacturing/view_work_order/' . $aRow['id']).'/'.$aRow['manufacturing_order_id'] . '" target="_blank">' . _l('view') . '</a>';
 
 			$code .= '</div>';
 

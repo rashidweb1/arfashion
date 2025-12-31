@@ -130,16 +130,16 @@ foreach ($rResult as $aRow) {
         $url .= '?contactid=' . $aRow['contact_id'];
     }
 
-    $company = '<a href="' . $url . '">' . $company . '</a>';
+    $company = '<a href="' . $url . '" target="_blank">' . $company . '</a>';
 
     $company .= '<div class="row-options">';
-    $company .= '<a href="' . $url . '">' . _l('view') . '</a>';
+    $company .= '<a href="' . $url . '" target="_blank">' . _l('view') . '</a>';
 
     if ($aRow['registration_confirmed'] == 0 && is_admin()) {
         $company .= ' | <a href="' . admin_url('purchase/confirm_registration/' . $aRow['userid']) . '" class="text-success bold">' . _l('confirm_registration') . '</a>';
     }
     if (!$isPerson) {
-        $company .= ' | <a href="' . admin_url('purchase/vendor/' . $aRow['userid'] . '?group=contacts') . '">' . _l('customer_contacts') . '</a>';
+        $company .= ' | <a href="' . admin_url('purchase/vendor/' . $aRow['userid'] . '?group=contacts') . '" target="_blank">' . _l('customer_contacts') . '</a>';
     }
     if ($hasPermissionDelete) {
         $company .= ' | <a href="' . admin_url('purchase/delete_vendor/' . $aRow['userid']) . '" class="text-danger _delete">' . _l('delete') . '</a>';
@@ -150,7 +150,7 @@ foreach ($rResult as $aRow) {
     $row[] = $company;
 
     // Primary contact
-    $row[] = ($aRow['contact_id'] ? '<a href="' . admin_url('pur_vendor/client/' . $aRow['userid'] . '?contactid=' . $aRow['contact_id']) . '" target="_blank">' . $aRow['firstname'] . ' ' . $aRow['lastname'] . '</a>' : '');
+    $row[] = ($aRow['contact_id'] ? '<a href="' . admin_url('purchase/vendor/' . $aRow['userid'] . '?group=contacts&contactid=' . $aRow['contact_id']) . '" target="_blank">' . $aRow['firstname'] . ' ' . $aRow['lastname'] . '</a>' : '');
 
     // Primary contact email
     $row[] = ($aRow['email'] ? '<a href="mailto:' . $aRow['email'] . '">' . $aRow['email'] . '</a>' : '');

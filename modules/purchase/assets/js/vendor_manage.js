@@ -13,6 +13,54 @@
            tAPI.ajax.reload();
        });
 
+	// Handle vendor delete with datatable refresh instead of page reload
+	$('.table-vendors').off('click', '._delete').on('click', '._delete', function(e) {
+		"use strict";
+		e.preventDefault();
+		e.stopImmediatePropagation();
+		e.stopPropagation();
+		
+		var deleteLink = $(this);
+		var deleteUrl = deleteLink.attr('href');
+		
+		if (confirm_delete()) {
+			$.ajax({
+				url: deleteUrl,
+				type: 'GET',
+				success: function(response) {
+					// Show success message
+					alert_float('success', 'Vendor deleted successfully');
+					
+					// Refresh the datatable
+					if ($.fn.DataTable.isDataTable('.table-vendors')) {
+						tAPI.ajax.reload(null, false);
+					}
+				},
+				error: function(xhr) {
+					// Try to parse response for error message
+					var message = 'Problem deleting vendor';
+					try {
+						if (xhr.responseText) {
+							// Check if response contains referenced error
+							if (xhr.responseText.indexOf('is_referenced') !== -1 || xhr.responseText.indexOf('referenced') !== -1) {
+								message = 'Cannot delete vendor: vendor is referenced in other records';
+							}
+						}
+					} catch(e) {
+						// Use default message
+					}
+					alert_float('warning', message);
+					
+					// Refresh the datatable even on error to ensure consistency
+					if ($.fn.DataTable.isDataTable('.table-vendors')) {
+						tAPI.ajax.reload(null, false);
+					}
+				}
+			});
+		}
+		return false;
+	});
+
 })(jQuery);
 
 function staff_bulk_actions(){

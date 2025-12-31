@@ -397,7 +397,7 @@ class purchase extends AdminController
 		$this->db->where('module_name','warehouse');
         $module = $this->db->get(db_prefix().'modules')->row();
         $data['tab'][] = 'purchase_order_setting';
-        $data['tab'][] = 'purchase_options';
+        // $data['tab'][] = 'purchase_options'; // Hidden tab
         $data['tab'][] = 'units';
         $data['tab'][] = 'approval';
         $data['tab'][] = 'commodity_group';

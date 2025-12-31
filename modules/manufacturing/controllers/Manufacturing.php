@@ -1727,7 +1727,7 @@ class Manufacturing extends AdminController
 				} elseif ($response == true) {
 					set_alert('success', _l('mrp_updated_successfully', _l('manufacturing_order')));
 				}
-				redirect(admin_url('manufacturing/view_manufacturing_order/'.$id));
+				redirect(admin_url('manufacturing/add_edit_manufacturing_order/'.$id));
 			}
 		}
 		

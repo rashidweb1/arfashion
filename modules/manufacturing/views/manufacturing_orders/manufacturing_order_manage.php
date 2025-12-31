@@ -19,7 +19,7 @@
 							<div class="row">
 								<div  class="col-md-4 leads-filter-column">
 									<div class="_buttons">
-										<a href="<?php echo admin_url('manufacturing/add_edit_manufacturing_order'); ?>" class="btn btn-info pull-left display-block mright5"><?php echo _l('add_manufacturing_order'); ?></a>
+										<a href="<?php echo admin_url('manufacturing/add_edit_manufacturing_order'); ?>" target="_blank" class="btn btn-info pull-left display-block mright5"><?php echo _l('add_manufacturing_order'); ?></a>
 
 										<a href="<?php echo admin_url('manufacturing/import_xlsx_contract'); ?>" class=" btn mright5 btn-default pull-left hide">
 											<?php echo _l('work_center_import'); ?>

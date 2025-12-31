@@ -91,14 +91,14 @@ foreach ($rResult as $aRow) {
 			$_data = $aRow['id'];
 
 		}elseif ($aColumns[$i] == 'manufacturing_order_code') {
-			$code = '<a href="' . admin_url('manufacturing/view_manufacturing_order/' . $aRow['id']) . '">' . $aRow['manufacturing_order_code'] . '</a>';
+			$code = '<a href="' . admin_url('manufacturing/view_manufacturing_order/' . $aRow['id']) . '" target="_blank">' . $aRow['manufacturing_order_code'] . '</a>';
 			$code .= '<div class="row-options">';
 
-			$code .= '<a href="' . admin_url('manufacturing/view_manufacturing_order/' . $aRow['id']) . '" >' . _l('view') . '</a>';
+			$code .= '<a href="' . admin_url('manufacturing/view_manufacturing_order/' . $aRow['id']) . '" target="_blank">' . _l('view') . '</a>';
 
 			if (has_permission('manufacturing', '', 'edit') || is_admin()) {
 
-				$code .= ' | <a href="' . admin_url('manufacturing/add_edit_manufacturing_order/' . $aRow['id']) . '" >' . _l('edit') . '</a>';
+				$code .= ' | <a href="' . admin_url('manufacturing/add_edit_manufacturing_order/' . $aRow['id']) . '" target="_blank">' . _l('edit') . '</a>';
 			}
 			if (has_permission('manufacturing', '', 'delete') || is_admin()) {
 				$code .= ' | <a href="' . admin_url('manufacturing/delete_manufacturing_order/' . $aRow['id']) . '" class="text-danger _delete">' . _l('delete') . '</a>';

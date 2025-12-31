@@ -65,7 +65,7 @@ foreach ($rResult as $aRow) {
 
 			$code = mrp_get_product_name($aRow['product_id']) ;
 			$code .= '<div class="row-options">';
-			$code .= '<a href="' . admin_url('manufacturing/view_product_detail/' . $aRow['product_id']) . '">' . _l('view') . '</a>';
+			$code .= '<a target="_blank" href="' . admin_url('manufacturing/view_product_detail/' . $aRow['product_id']) . '">' . _l('view') . '</a>';
 			$code .= '</div>';
 
 			$_data = $code;
